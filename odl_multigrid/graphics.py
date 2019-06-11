@@ -102,8 +102,16 @@ def show_both(coarse_data, fine_data):
     # TODO: set aspect from physical sizes
     ax.set_aspect('auto', 'box')
 
-def show_all(data, low = None, high = None):
-    """Show all reconstructed resolutions in a single image. For multiple ROIs"""
+def show_all(data, low=None, high=None):
+    """Show all reconstructed resolutions in a single image. For multiple ROIs
+    
+    	data: list of reconstructions, with background given as data[0] and
+              subsequent ROI reconstructions given as data[1], data[2], ...
+ 
+	low: lower bound of dynamic range. If 'None' set to min(data)
+
+	high: upper bound of dynamic range. If 'None' set to max(data)
+    """
     # Lazy import, can be slow
     import matplotlib as mpl
     import matplotlib.pyplot as plt
@@ -119,7 +127,6 @@ def show_all(data, low = None, high = None):
         low = min([np.min(data[0]), np.min(data[1])])
     if high is None:
         high = max([np.max(data[0]), np.max(data[1])])
-    
 
     normalization = mpl.colors.Normalize(vmin=low, vmax=high)
 
